@@ -9,6 +9,7 @@ import com.model.Employee;
 import com.model.EmployeeDetails;
 import com.model.Employees;
 import com.model.EmployeesDetails;
+import com.model.HandlerResponse;
 import com.model.exception.NoRecordFoundException;
 
 public class EmployeeDetailsDao implements EmployeeDao<EmployeeDetails> {
@@ -37,9 +38,14 @@ public class EmployeeDetailsDao implements EmployeeDao<EmployeeDetails> {
 	}
 
 	@Override
-	public void add(EmployeeDetails employee) {
+	public HandlerResponse add(EmployeeDetails employee) {
+		try {
 		dataHandler.addDataNode(employee, EmployeeDetails.class);
 		System.out.println("Successfully added record");
+		}catch(Exception ex) {
+			return HandlerResponse.failureResponse(ex.getMessage(), this.getClass().getName()+" - add() ");
+		}
+		return HandlerResponse.successResponse();
 	}
 
 }

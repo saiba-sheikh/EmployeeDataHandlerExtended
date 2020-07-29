@@ -1,8 +1,10 @@
 package com.service;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import com.model.Address;
+import com.model.Designation;
 import com.services.InputService;
 
 public class EmployeeDataInputServices extends InputService{
@@ -32,6 +34,18 @@ public class EmployeeDataInputServices extends InputService{
 					.withState(state)
 					.build();
 
+	}
+	
+	@Override	
+	public Designation getDesignation() {
+		System.out.println("Select Designation: OR Press D to default");
+		System.out.println(Arrays.toString(Designation.values())); 
+		String input = scanner.next().strip();
+		if(input.equalsIgnoreCase("D"))
+			return Designation.DEVELOPER;
+		else
+		return Designation.getDesignation( input );
+			
 	}
 
 }
